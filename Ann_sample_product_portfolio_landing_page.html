@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Portfolio | Sample Landing Page</title>
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --card: #ffffff;
+      --ink: #1f2933;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --accent: #6d5dfc;
+      --accent-dark: #4f46e5;
+      --gold: #d9a441;
+      --green: #10b981;
+      --blue: #0ea5e9;
+      --rose: #f43f5e;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #eee9ff 0, transparent 32%),
+                  radial-gradient(circle at bottom right, #fff3d6 0, transparent 28%),
+                  var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 36px;
+      align-items: center;
+      margin-bottom: 44px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.7);
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5.6rem);
+      line-height: 0.96;
+      letter-spacing: -0.075em;
+      margin: 0 0 22px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 0 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .snapshot {
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(226,232,240,0.9);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .snapshot h2 {
+      margin: 0 0 16px;
+      letter-spacing: -0.04em;
+    }
+
+    .stat {
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .stat:first-of-type {
+      border-top: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.65rem;
+      letter-spacing: -0.05em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin: 54px 0 20px;
+    }
+
+    .section-head h2 {
+      font-size: 2rem;
+      letter-spacing: -0.06em;
+      margin: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .tile {
+      min-height: 230px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .purple { background: var(--accent); }
+    .gold { background: var(--gold); }
+    .blue { background: var(--blue); }
+    .rose { background: var(--rose); }
+
+    .tile h3 {
+      margin: 0 0 10px;
+      font-size: 1.28rem;
+      letter-spacing: -0.045em;
+    }
+
+    .tile p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .tile .link {
+      margin-top: 26px;
+      color: var(--accent-dark);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      background: var(--ink);
+      color: white;
+      border-radius: 32px;
+      overflow: hidden;
+      margin-top: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .feature-panel {
+      padding: 32px;
+    }
+
+    .feature-panel .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      margin-bottom: 16px;
+    }
+
+    .feature h2 {
+      margin: 0 0 14px;
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .feature p {
+      color: #cbd5e1;
+      margin: 0 0 20px;
+    }
+
+    .proof-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .proof {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .proof strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .mockup {
+      background: #f8fafc;
+      padding: 26px;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .mock-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: 0 12px 32px rgba(15,23,42,0.12);
+      margin-bottom: 14px;
+    }
+
+    .mock-card small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mock-card h3 {
+      margin: 7px 0 8px;
+      letter-spacing: -0.04em;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: 72%;
+      background: var(--accent);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .mini {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .mini strong {
+      display: block;
+      font-size: 1.4rem;
+      letter-spacing: -0.05em;
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.94rem;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .feature {
+        grid-template-columns: 1fr;
+      }
+
+      .tile-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 8px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page {
+        width: min(100% - 24px, 1120px);
+        padding-top: 20px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 36px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .tile-grid,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="nav">
+      <div class="brand">Candidate Name · Product Portfolio</div>
+      <div class="nav-links">
+        <a href="#tiles">Work</a>
+        <a href="#case-study">Case Study</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Staff PM candidate · AI + B2B/B2C product thinking</div>
+        <h1>I build useful products from messy problems.</h1>
+        <p>
+          A compact portfolio showing how I think across discovery, strategy, execution, launch, and iteration.
+          Designed for recruiters and hiring managers who want quick evidence of product judgment.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#tiles">View portfolio tiles</a>
+          <a class="btn" href="#case-study">Start with flagship case study</a>
+        </div>
+      </div>
+
+      <aside class="snapshot">
+        <h2>Product snapshot</h2>
+        <div class="stat">
+          <strong>12+ yrs</strong>
+          <span>IT, software delivery, analytics, and people leadership</span>
+        </div>
+        <div class="stat">
+          <strong>B2B + B2C</strong>
+          <span>Dashboards, internal tools, customer-facing experiences</span>
+        </div>
+        <div class="stat">
+          <strong>AI-ready</strong>
+          <span>LLM coaching tool, prompt design, guardrails, and evaluation</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="tiles">
+      <div class="section-head">
+        <h2>Choose a proof point</h2>
+        <p>Each tile opens a concise artifact: what problem I solved, how I made decisions, and what I learned.</p>
+      </div>
+
+      <div class="tile-grid">
+        <a class="tile" href="#case-study">
+          <div>
+            <div class="icon purple">01</div>
+            <h3>Product Case Study</h3>
+            <p>End-to-end lifecycle: problem, personas, MVP, roadmap, launch, metrics, and tradeoffs.</p>
+          </div>
+          <div class="link">Open case study →</div>
+        </a>
+
+        <a class="tile" href="#teardown">
+          <div>
+            <div class="icon gold">02</div>
+            <h3>Product Teardown</h3>
+            <p>A teardown of an existing product feature, including user need, business model, and improvement ideas.</p>
+          </div>
+          <div class="link">Read teardown →</div>
+        </a>
+
+        <a class="tile" href="#ai-experiment">
+          <div>
+            <div class="icon blue">03</div>
+            <h3>AI Experiment</h3>
+            <p>ChatGPT-powered coaching tool: prompt strategy, UX choices, risks, hallucination handling, and next steps.</p>
+          </div>
+          <div class="link">Explore AI build →</div>
+        </a>
+
+        <a class="tile" href="#improvement">
+          <div>
+            <div class="icon rose">04</div>
+            <h3>Product Improvement</h3>
+            <p>A focused proposal showing how I would improve activation, retention, or trust for a real product.</p>
+          </div>
+          <div class="link">See proposal →</div>
+        </a>
+      </div>
+    </section>
+
+    <section id="case-study" class="feature">
+      <div class="feature-panel">
+        <span class="tag">Flagship Case Study</span>
+        <h2>AI Career Coaching Resource Hub</h2>
+        <p>
+          Built a content-led website with a blog and embedded AI coaching tool to help career pivoters get structured,
+          personalized guidance without needing expensive 1:1 coaching as the first step.
+        </p>
+
+        <div class="proof-list">
+          <div class="proof">
+            <strong>Problem</strong>
+            Career pivoters have fragmented advice, low confidence, and no easy way to turn generic tips into a plan.
+          </div>
+          <div class="proof">
+            <strong>Product role demonstrated</strong>
+            Discovery, positioning, persona definition, feature prioritization, AI UX, launch messaging, and iteration.
+          </div>
+          <div class="proof">
+            <strong>Artifacts included</strong>
+            Personas, competitor notes, MVP scope, prompt design, success metrics, risks, roadmap, and lessons learned.
+          </div>
+        </div>
+      </div>
+
+      <div class="mockup">
+        <div class="mock-card">
+          <small>USER PERSONA</small>
+          <h3>“The Experienced Pivoter”</h3>
+          <p>12+ years in IT or operations, strong delivery background, but needs help translating work into product language.</p>
+        </div>
+        <div class="mock-card">
+          <small>AI COACHING TOOL</small>
+          <h3>Prompted career guidance</h3>
+          <p>Users answer a few structured questions and receive portfolio, resume, and interview positioning guidance.</p>
+          <div class="bar"><span></span></div>
+        </div>
+        <div class="mock-card">
+          <small>NEXT ITERATION</small>
+          <h3>Better activation loop</h3>
+          <p>Add portfolio templates, saved answers, and email capture after the first valuable coaching response.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="teardown">
+      <div class="section-head">
+        <h2>Sample teardown structure</h2>
+        <p>Recruiters do not need a dissertation. They need crisp evidence that the candidate can reason like a PM.</p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <strong>1</strong>
+          <span>What user/job is this product solving for?</span>
+        </div>
+        <div class="mini">
+          <strong>2</strong>
+          <span>What business metric does the feature likely move?</span>
+        </div>
+        <div class="mini">
+          <strong>3</strong>
+          <span>What would I improve, and what tradeoff would I accept?</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-experiment">
+      <div class="section-head">
+        <h2>AI experiment proof points</h2>
+        <p>Use the AI tool to show product judgment, not just prompt-writing. The key is trust, usefulness, and repeatability.</p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <strong>UX</strong>
+          <span>How users enter context and receive useful, non-overwhelming output.</span>
+        </div>
+        <div class="mini">
+          <strong>Risk</strong>
+          <span>Hallucination handling, disclaimers, escalation paths, and content boundaries.</span>
+        </div>
+        <div class="mini">
+          <strong>Eval</strong>
+          <span>How answer quality, completion rate, and return usage would be measured.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="improvement">
+      <div class="section-head">
+        <h2>Product improvement proposal</h2>
+        <p>A short proposal can show senior-level product thinking without revealing confidential work.</p>
+      </div>
+
+      <div class="mini-grid">
+        <div class="mini">
+          <strong>Now</strong>
+          <span>Clarify the resource page and make the AI coach easier to discover.</span>
+        </div>
+        <div class="mini">
+          <strong>Next</strong>
+          <span>Add templates, examples, and a guided portfolio builder workflow.</span>
+        </div>
+        <div class="mini">
+          <strong>Later</strong>
+          <span>Create personalized progress tracking, saved plans, and cohort/community features.</span>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div>Candidate Name · Staff Product Manager Portfolio</div>
+      <div>Email · LinkedIn · Resume · Website</div>
+    </footer>
+  </main>
+</body>
+</html>
